@@ -1,0 +1,1 @@
+./configure --fst-root=/u/drspeech/data/swordfish/users/suhang/projects/kaldi/kaldi-trunk/tools/openfst --atlas-root=/u/drspeech/data/swordfish/users/suhang/projects/kaldi/kaldi-trunk/tools/ATLAS --use-cuda=yes --cudatk-dir=/usr/local64/lang/cuda-5.0

@@ -11,6 +11,7 @@ set -o pipefail
 ## Begin configuration section
 clean_up=true
 seed=
+sort_by_len=true
 cmd=
 nj=1
 # End of configuration
@@ -51,7 +52,12 @@ for part in tr cv; do
           num_utts = 0;
           max_frame_num = 0;
         }
-      }' | utils/shuffle_list.pl --srand ${seed:-777} > $dir/batch.$part.list
+      }' > $dir/batch.$part.list.sort
+  if [ $sort_by_len == true ]; then
+    (cd $dir; ln -s batch.$part.list.sort batch.$part.list)
+  else
+    cat $dir/batch.$part.list.sort | utils/shuffle_list.pl --srand ${seed:-777} > $dir/batch.$part.list
+  fi
 
   split_batches=""
   for n in $(seq $nj); do

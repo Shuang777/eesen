@@ -90,7 +90,7 @@ echo "Preparing train and cv features"
 tmpdir=$dir/feats; 
 [ -d $tmpdir ] || mkdir -p $tmpdir
 [ $clean_up == true ] && trap "echo \"Removing features tmpdir $tmpdir @ $(hostname)\"; ls $tmpdir; rm -r $tmpdir" EXIT
-utils/prep_scps.sh --nj $nj --cmd "$train_cmd" ${seed:+ --seed=$seed} --clean-up $clean_up \
+utils/prep_scps.sh --nj $nj --cmd "$train_cmd" ${seed:+ --seed=$seed} --clean-up $clean_up --sort-by-len $sort_by_len\
   $data_tr/feats.scp $data_cv/feats.scp $num_sequence $frame_num_limit $tmpdir $dir || exit 1;
 
 feats_tr="ark,s,cs:apply-cmvn --norm-vars=$norm_vars --utt2spk=ark:$data_tr/utt2spk scp:$data_tr/cmvn.scp scp:$dir/feats_tr.JOB.scp ark:- |"
